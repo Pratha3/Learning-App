@@ -9,8 +9,10 @@ interface PageProps {
   };
 }
 
-export default function CourseDetails({ params }: PageProps) {
+export default async function CourseDetails({ params }: PageProps) {
   console.log("Params ID:", params.id); // Check if ID is correct
+
+  // Simulate fetching the course (assuming you have a backend/API call or data-fetching logic)
   const course = courses.find((c) => c.id === Number(params.id));
 
   console.log("Course Found:", course); // Check if course is found
