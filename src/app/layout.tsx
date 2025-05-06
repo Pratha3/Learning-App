@@ -1,6 +1,8 @@
+"use client";
 import type { Metadata } from "next";
 import "./globals.css";
 import Image from "next/image";
+import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "HARONEX Learning Platform",
@@ -18,7 +20,7 @@ export default function RootLayout({
         {/* Navbar */}
         <nav className="bg-gradient-to-r from-teal-500 to-indigo-600 text-white p-4 sticky top-0 z-10 shadow-lg">
           <div className="container mx-auto flex flex-col sm:flex-row justify-between items-center">
-            <a href="/" className="mb-4 sm:mb-0">
+            <Link href="/" className="mb-4 sm:mb-0">
               <Image
                 src="/img/Part_1.png"
                 alt="HARONEX Logo"
@@ -26,14 +28,14 @@ export default function RootLayout({
                 height={40}
                 className="h-10 w-auto"
               />
-            </a>
+            </Link>
             <div className="flex space-x-6">
-              <a href="/courses" className="hover:text-yellow-300">
+              <Link href="/courses" className="hover:text-yellow-300">
                 Courses
-              </a>
-              <a href="/about" className="hover:text-yellow-300">
+              </Link>
+              <Link href="/about" className="hover:text-yellow-300">
                 About
-              </a>
+              </Link>
             </div>
           </div>
         </nav>
@@ -66,33 +68,36 @@ export default function RootLayout({
                 </h3>
                 <ul className="space-y-2 text-sm">
                   <li>
-                    <a href="/" className="text-gray-600 hover:text-indigo-600">
+                    <Link
+                      href="/"
+                      className="text-gray-600 hover:text-indigo-600"
+                    >
                       Home
-                    </a>
+                    </Link>
                   </li>
                   <li>
-                    <a
+                    <Link
                       href="/courses"
                       className="text-gray-600 hover:text-indigo-600"
                     >
                       Courses
-                    </a>
+                    </Link>
                   </li>
                   <li>
-                    <a
+                    <Link
                       href="/about"
                       className="text-gray-600 hover:text-indigo-600"
                     >
                       About
-                    </a>
+                    </Link>
                   </li>
                   <li>
-                    <a
+                    <Link
                       href="/faq"
                       className="text-gray-600 hover:text-indigo-600"
                     >
                       FAQ
-                    </a>
+                    </Link>
                   </li>
                 </ul>
               </div>
@@ -104,36 +109,36 @@ export default function RootLayout({
                 </h3>
                 <ul className="space-y-2 text-sm">
                   <li>
-                    <a
+                    <Link
                       href="/contact"
                       className="text-gray-600 hover:text-indigo-600"
                     >
                       Contact Us
-                    </a>
+                    </Link>
                   </li>
                   <li>
-                    <a
+                    <Link
                       href="/help"
                       className="text-gray-600 hover:text-indigo-600"
                     >
                       Help Center
-                    </a>
+                    </Link>
                   </li>
                   <li>
-                    <a
+                    <Link
                       href="/terms"
                       className="text-gray-600 hover:text-indigo-600"
                     >
                       Terms of Service
-                    </a>
+                    </Link>
                   </li>
                   <li>
-                    <a
+                    <Link
                       href="/privacy"
                       className="text-gray-600 hover:text-indigo-600"
                     >
                       Privacy Policy
-                    </a>
+                    </Link>
                   </li>
                 </ul>
               </div>
