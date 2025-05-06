@@ -9,8 +9,6 @@ interface PageProps {
     id: string;
   };
 }
-
-// Optional: Generate dynamic metadata for SEO
 export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {
