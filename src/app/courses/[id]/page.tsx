@@ -1,26 +1,38 @@
 import Link from "next/link";
 import Image from "next/image";
 import { courses } from "../../../data/courses";
+import { Metadata } from "next";
 
-// Define the PageProps type explicitly
+// Explicitly define the PageProps type
 interface PageProps {
   params: {
     id: string;
   };
 }
 
-export default async function CourseDetails({ params }: PageProps) {
-  console.log("Params ID:", params.id); // Check if ID is correct
-
-  // Simulate fetching the course (assuming you have a backend/API call or data-fetching logic)
+// Optional: Generate dynamic metadata for SEO
+export async function generateMetadata({
+  params,
+}: PageProps): Promise<Metadata> {
   const course = courses.find((c) => c.id === Number(params.id));
+  return {
+    title: course ? course.title : "Course Not Found | HARONEX",
+    description: course
+      ? course.description
+      : "Course not found on HARONEX platform",
+  };
+}
 
-  console.log("Course Found:", course); // Check if course is found
+export default async function CourseDetails({ params }: PageProps) {
+  const course = courses.find((c) => c.id === Number(params.id));
 
   if (!course) {
     return (
       <div className="container mx-auto py-8 text-white bg-gray-900 min-h-screen">
-        <h2>Course not found</h2>
+        <h2 className="text-2xl font-bold">Course not found</h2>
+        <Link href="/courses" className="text-teal-400 underline mt-4 block">
+          Go back to courses
+        </Link>
       </div>
     );
   }
