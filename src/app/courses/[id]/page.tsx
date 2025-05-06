@@ -2,7 +2,14 @@ import Link from "next/link";
 import Image from "next/image";
 import { courses } from "../../../data/courses";
 
-export default function CourseDetails({ params }: { params: { id: string } }) {
+// Define the PageProps type explicitly
+interface PageProps {
+  params: {
+    id: string;
+  };
+}
+
+export default function CourseDetails({ params }: PageProps) {
   console.log("Params ID:", params.id); // Check if ID is correct
   const course = courses.find((c) => c.id === Number(params.id));
 
