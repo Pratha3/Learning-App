@@ -1,170 +1,87 @@
-import type { Metadata } from "next";
-import "./globals.css";
-import Image from "next/image";
 import Link from "next/link";
+import Image from "next/image";
+import { courses } from "../data/courses";
 
-export const metadata: Metadata = {
-  title: "HARONEX Learning Platform",
-  description: "Learn from industry experts with HARONEX.",
-};
+// Define the PageProps type explicitly
+interface PageProps {
+  params: {
+    id: string;
+  };
+}
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default async function CourseDetails({ params }: PageProps) {
+  console.log("Params ID:", params.id); // Check if ID is correct
+
+  // Simulate fetching the course (assuming you have a backend/API call or data-fetching logic)
+  const course = courses.find((c) => c.id === Number(params.id));
+
+  console.log("Course Found:", course); // Check if course is found
+
+  if (!course) {
+    return (
+      <div className="container mx-auto py-8 text-white bg-gray-900 min-h-screen">
+        <h2>Course not found</h2>
+      </div>
+    );
+  }
+
   return (
-    <html lang="en" className="h-full">
-      <body className="bg-white text-gray-900 min-h-screen flex flex-col">
-        {/* Navbar */}
-        <nav className="bg-gradient-to-r from-teal-500 to-indigo-600 text-white p-4 sticky top-0 z-10 shadow-lg">
-          <div className="container mx-auto flex flex-col sm:flex-row justify-between items-center">
-            <Link href="/" className="mb-4 sm:mb-0">
-              <Image
-                src="/img/Part_1.png"
-                alt="HARONEX Logo"
-                width={180}
-                height={40}
-                className="h-10 w-auto"
-              />
-            </Link>
-            <div className="flex space-x-6">
-              <Link href="/courses" className="hover:text-yellow-300">
-                Courses
-              </Link>
-              <Link href="/about" className="hover:text-yellow-300">
-                About
-              </Link>
-            </div>
-          </div>
-        </nav>
+    <div className="container-fluid mx-auto p-8 bg-white text-gray-900 min-h-screen">
+      <Link
+        href="/courses"
+        className="mb-6 text-teal-500 hover:underline flex items-center"
+      >
+        <svg
+          className="w-5 h-5 mr-2"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            d="M15 19l-7-7 7-7"
+          />
+        </svg>
+        Back to Courses
+      </Link>
 
-        {/* Page Content */}
-        <div className="bg-white">
-          <main className="flex-grow">{children}</main>
+      <div className="flex flex-col lg:flex-row gap-8">
+        <div className="lg:w-2/3">
+          <h1 className="text-4xl font-bold mb-4 text-teal-500">
+            {course.title}
+          </h1>
+          <p className="text-gray-700 mb-4">{course.description}</p>
+          <div className="flex items-center mb-4">
+            <span className="text-yellow-500 font-bold">{course.rating}</span>
+            <span className="text-gray-500 text-sm ml-2">
+              ({course.reviews} reviews)
+            </span>
+          </div>
+          <p className="text-gray-600 mb-2">Instructor: {course.instructor}</p>
+          <p className="text-gray-600 mb-2">Duration: {course.duration}</p>
+          <p className="text-gray-600 mb-4">Level: {course.level}</p>
         </div>
 
-        {/* Footer */}
-        <footer className="bg-gray-50 text-gray-700 py-12 mt-8">
-          <div className="container mx-auto px-4">
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-              {/* About */}
-              <div>
-                <h3 className="text-lg font-semibold mb-4 text-gray-900">
-                  About HARONEX
-                </h3>
-                <p className="text-sm text-gray-600">
-                  HARONEX is a leading online learning platform dedicated to
-                  empowering learners with high-quality education from industry
-                  experts.
-                </p>
-              </div>
-
-              {/* Explore */}
-              <div>
-                <h3 className="text-lg font-semibold mb-4 text-gray-900">
-                  Explore
-                </h3>
-                <ul className="space-y-2 text-sm">
-                  <li>
-                    <Link
-                      href="/"
-                      className="text-gray-600 hover:text-indigo-600"
-                    >
-                      Home
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      href="/courses"
-                      className="text-gray-600 hover:text-indigo-600"
-                    >
-                      Courses
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      href="/about"
-                      className="text-gray-600 hover:text-indigo-600"
-                    >
-                      About
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      href="/faq"
-                      className="text-gray-600 hover:text-indigo-600"
-                    >
-                      FAQ
-                    </Link>
-                  </li>
-                </ul>
-              </div>
-
-              {/* Support */}
-              <div>
-                <h3 className="text-lg font-semibold mb-4 text-gray-900">
-                  Support
-                </h3>
-                <ul className="space-y-2 text-sm">
-                  <li>
-                    <Link
-                      href="/contact"
-                      className="text-gray-600 hover:text-indigo-600"
-                    >
-                      Contact Us
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      href="/help"
-                      className="text-gray-600 hover:text-indigo-600"
-                    >
-                      Help Center
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      href="/terms"
-                      className="text-gray-600 hover:text-indigo-600"
-                    >
-                      Terms of Service
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      href="/privacy"
-                      className="text-gray-600 hover:text-indigo-600"
-                    >
-                      Privacy Policy
-                    </Link>
-                  </li>
-                </ul>
-              </div>
-
-              {/* Contact */}
-              <div>
-                <h3 className="text-lg font-semibold mb-4 text-gray-900">
-                  Get in Touch
-                </h3>
-                <p className="text-sm text-gray-600 mb-2">
-                  Email: support@haronex.com
-                </p>
-                <p className="text-sm text-gray-600 mb-2">
-                  Phone: +91 123-456-7890
-                </p>
-                <p className="text-sm text-gray-600">
-                  Address: 123 Learning Lane, Education City, USA
-                </p>
-              </div>
-            </div>
-
-            <div className="mt-8 text-center text-gray-500 text-sm">
-              © {new Date().getFullYear()} HARONEX. All rights reserved.
-            </div>
+        <div className="lg:w-1/3">
+          <div className="bg-gray-100 rounded-lg shadow-lg p-6 sticky top-24">
+            <Image
+              src={course.image}
+              alt={course.title}
+              width={400}
+              height={192}
+              className="w-full h-48 object-cover rounded mb-4"
+            />
+            <p className="text-2xl font-bold mb-4 text-gray-900">
+              ${course.price.toFixed(2)}
+            </p>
+            <button className="w-full bg-teal-600 text-white py-2 rounded hover:bg-teal-700 transition-all duration-300">
+              Enroll Now
+            </button>
           </div>
-        </footer>
-      </body>
-    </html>
+        </div>
+      </div>
+    </div>
   );
 }
