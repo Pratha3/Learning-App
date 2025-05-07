@@ -3,7 +3,6 @@ import Image from "next/image";
 import { courses } from "../../../data/courses";
 import { Metadata } from "next";
 
-// Explicitly define the PageProps type with params as a Promise
 interface PageProps {
   params: Promise<{ id: string }>;
 }
