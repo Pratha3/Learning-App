@@ -3,16 +3,18 @@ import Image from "next/image";
 import { courses } from "../../../data/courses";
 import { Metadata } from "next";
 
-// Explicitly define the PageProps type
+// Explicitly define the PageProps type with params as a Promise
 interface PageProps {
-  params: {
-    id: string;
-  };
+  params: Promise<{ id: string }>;
 }
+
+// Metadata generation
 export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {
-  const course = courses.find((c) => c.id === Number(params.id));
+  const resolvedParams = await params; // Await params
+  const course = courses.find((c) => c.id === Number(resolvedParams.id));
+
   return {
     title: course ? course.title : "Course Not Found | HARONEX",
     description: course
@@ -21,8 +23,10 @@ export async function generateMetadata({
   };
 }
 
+// Page component
 export default async function CourseDetails({ params }: PageProps) {
-  const course = courses.find((c) => c.id === Number(params.id));
+  const resolvedParams = await params; // Await params
+  const course = courses.find((c) => c.id === Number(resolvedParams.id));
 
   if (!course) {
     return (
